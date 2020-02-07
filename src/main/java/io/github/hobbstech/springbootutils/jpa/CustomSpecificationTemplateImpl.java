@@ -4,6 +4,7 @@ import lombok.val;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
+import java.util.regex.Pattern;
 
 /**
  * @param <T> The Entity class type that is being used, to which the specification is to be created for.
@@ -32,7 +33,7 @@ public class CustomSpecificationTemplateImpl<T> implements Specification<T> {
     //@SuppressWarnings("unchecked")
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 
-        val keys = searchCriteria.getKey().split(".");
+        val keys = searchCriteria.getKey().split(Pattern.quote("."));
 
 
         if (searchCriteria.getOperation().equalsIgnoreCase(Operations.GREATER_THAN.sign)) {
